@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+
+body{
+	background-color: rgb(228,228,228);
+	z-index: 1;
+}
+
+.login{
+	position: fixed;
+	top: 30%;
+	left: 25%;
+}
+
+#submit {
+	border: none;
+	background: none;
+	font-family: sans-serif;
+	color: black;
+	padding: 2%;
+	font-size: medium;
+}
+
+a {
+	text-decoration: none;
+	font-family: sans-serif;	
+	color: black;
+	font-size: medium;
+}
+
+.pagecontent {
+	position: fixed;
+	top: 15%;
+}
+
+.productTilesContainer {
+	position: fixed;
+	top: 15%;
+	left: 15%;
+}
+
+ul.productTiles li{
+	width: 500px;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	border: thin;
+}
+
+.breaker {
+	clear: both;
+}

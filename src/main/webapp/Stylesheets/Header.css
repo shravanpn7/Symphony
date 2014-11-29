@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+
+body {
+	background-image: url("/ShoppingCart/Images/header.png");
+	background-repeat: repeat-x;
+	background-size: 25%; 
+	z-index: 2;
+}
+
+.logotext {
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: xx-large;
+	font-weight: bold;
+	margin-left: 2%;
+	color: white;
+}
+
+.welcometext {
+	position: fixed;
+	top: 3%;
+	left: 70%;
+	color: white;
+}
+
+.anchorStyle {
+	text-decoration: none;
+	font-family: sans-serif;
+	color: white;
+	font-size: medium;
+}
+
+#headersubmit {
+	border: none;
+	background: none;
+	font-family: sans-serif;
+	color: white;
+	padding: 2%;
+	font-size: medium;
+}

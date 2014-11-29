@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+.sideNavigationBarContainer {
+	position: fixed;
+	top: 12%;
+	width: 20%;
+	height: 100%;
+}
+
+#submitSideNav {
+	border: none;
+	background: none;
+	font-family: sans-serif;
+	color: black;
+	padding: 2%;
+	font-size: medium;
+}
+
+
