@@ -36,22 +36,23 @@ public class SymphonyServices {
 	public Response login(@FormParam("Username") String customerID, @FormParam("Password") String password, @Context HttpServletRequest request){
 		String message=new CustomerDAO().validateCredentials(customerID, password);
 		if(message.equalsIgnoreCase("valid user")){
-			String customerName=new CustomerDAO().getCustomerName(customerID);
-			if(customerName.equalsIgnoreCase("error")){
+			String validID=new CustomerDAO().validateCustomerId(customerID);
+			if(validID.equalsIgnoreCase("error")){
 				userMap.put("Error", "Unable to connect to database. Try again later.");
 				return Response.ok(new Viewable("/Error.jsp", userMap)).build();
 			}
-			if(customerName.equalsIgnoreCase("User doesnot exist")){
+			if(validID.equalsIgnoreCase("User doesnot exist")){
 				userMap.put("Error", "User with given Email id doesnot exist");
 				return Response.ok(new Viewable("/Error.jsp", userMap)).build();
 			}
 			HttpSession session= request.getSession(true);
 			session.setAttribute("customerID", customerID);
-			session.setAttribute("customerID", customerID);
-			return this.getProductsInCategory("Album");
-//			Map<String, String> topNMap=new CategoryDAO().getTopNList(customerID);
-//			
-//			return Response.ok(new Viewable("/Home.jsp", topNMap)).build();
+			//return this.getProductsInCategory("Album");
+			List<String> itemIdList=new CategoryDAO().getTopNList(customerID);
+			userMap.put("Category", "Top N Recommendations");
+			userMap.put("ProductList", itemIdList);
+			//System.out.println("********"+itemIdList);
+			return Response.ok(new Viewable("/Home.jsp", userMap)).build();
 		}
 		else if(message.equalsIgnoreCase("error")){
 			userMap.put("Error", "Unable to connect to database. Try again later.");
@@ -106,7 +107,7 @@ public class SymphonyServices {
 			userMap.put("Category", category);
 			userMap.put("ProductList", productList);
 		}
-		
+		System.out.println("***********userMap***** "+userMap);
 		return Response.ok(new Viewable("/Home.jsp", userMap)).build();
 		
 	}

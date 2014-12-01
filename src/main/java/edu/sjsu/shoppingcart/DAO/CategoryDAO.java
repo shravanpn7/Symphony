@@ -17,19 +17,19 @@ import edu.sjsu.shoppingcart.POJO.Tracks;
 public class CategoryDAO {
 
 	
-	public Map<String, String> getTopNList(String customerID){
+	public List<String> getTopNList(String customerID){
 		Connection db=new DBConnection("mysql").getmysqlDBConnection();
 		PreparedStatement stmt=null;
 		ResultSet result=null;
 		
-		Map<String, String> topNMap=new HashMap<String, String>();
-		String query="select ITEM, VALUE from USER_RECO where USER_ID = "+customerID;
+		List<String> itemIdList=new ArrayList<String>();
+		String query="select ITEM from USER_RECO where USER_ID = "+customerID;
 		try {
 			stmt=db.prepareStatement(query);
 			result=stmt.executeQuery();
 			while(result.next())
-				topNMap.put(result.getString("ITEM"), result.getString("VALUE"));
-			return topNMap;
+				itemIdList.add(result.getString("ITEM"));
+			return itemIdList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

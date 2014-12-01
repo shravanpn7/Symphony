@@ -11,17 +11,6 @@
 <link rel="stylesheet" href="/Symphony/Stylesheets/homepage.css" type="text/css">
 <link href="/Symphony/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-<style>
-.music ul:not(:first-child) {
-	display: inline-block;
-}
-
-.music ul:nth-child(5n) {
-	float: left;
-	display:block;
-}
-</style>
-
 <title>Symphony - Home</title>
 </head>
 <body>
@@ -66,19 +55,20 @@
      		<h1 class="page-header">${it.Category}</h1> 
     	 <div class="music">
      	
-		     <ul style="list-style: none;">
+		     
 				<c:forEach var="product" items="${it.ProductList}">
-				<li style="border:2px solid #000; border-radius:10px; width: 110px; background-color: #f5f5f5; margin: 10px; padding: 7px 0px; text-align: center; ">
+				<p style="border:2px solid #000; float:left; border-radius:10px; box-shadow: 0px 0px 13px 1px; width: 200px; background-color: #f5f5f5; margin: 25px; padding: 25px 0px; text-align: center; ">
 					<!--  a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}"-->
-					<div style=" ">
-					<a href="/Symphony/${it.Category}.jsp">
-					<i class="fa fa-music fa-5x"></i> <br/>
+					
+					<a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}">
+					<i class="fa fa-music fa-5x"></i> <br/><br/>
 							
-							${it.Category}	${product}
+						<span style="font-size:1.7em;">	${product}</span>
+						
 							
 					</a>
-					</div>
-				</li>
+					
+				</p>
 				</c:forEach>
 			</ul>
 			

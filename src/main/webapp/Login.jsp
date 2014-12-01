@@ -43,8 +43,8 @@
     <div class="container">
       <form class="form-signin" action="/Symphony/Symphony/Symphony/LogIn" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="Username" class="sr-only">Email address</label>
-        <input id="inputEmail" name="Username" class="form-control" placeholder="Email address" required autofocus>
+        <label for="Username" class="sr-only">User id</label>
+        <input id="inputEmail" name="Username" class="form-control" placeholder="User id" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password" required>
         <div class="checkbox">
