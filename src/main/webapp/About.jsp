@@ -36,7 +36,9 @@
           <ul class="nav navbar-nav navbar-right">
               <li><a href="/Symphony/Home.jsp">Home</a></li>
               <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
-              <li><a href="/Symphony/Login.jsp">Logout</a></li>
+              <li><form action="/Symphony/Symphony/Symphony/Logout" method="post">
+					<input id="headersubmit" type="submit" name="Logout" value="Logout">
+				</form></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->

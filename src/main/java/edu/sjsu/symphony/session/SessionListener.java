@@ -16,13 +16,14 @@ public class SessionListener implements HttpSessionListener{
 
 	public void sessionDestroyed(HttpSessionEvent event) {
 		HttpSession session=event.getSession();
-		if(new CustomerDAO().deleteCustomerSession((String)session.getAttribute("customerID"))){
+		String customerId=(String)session.getAttribute("customerID");
+		String[] values=customerId.split("-");
+		if(new CustomerDAO().deleteCustomerSession(values[0].trim())){
 			System.out.println("session deleted");
 		}
 		else{
 			System.out.println("Couldnt clear the cart entries in Cart DB");
 		}
-		session.removeAttribute("customername");
 		session.removeAttribute("customerID");
 		
 	}

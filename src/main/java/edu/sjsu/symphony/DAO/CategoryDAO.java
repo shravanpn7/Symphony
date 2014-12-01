@@ -225,19 +225,6 @@ public class CategoryDAO {
     }
     return searchResult;
   }
-	
-	
-	public void getDetails(String category, String productId){
-		if(category.equalsIgnoreCase("Album")){
-			this.getAlbumDetails(productId);
-		}
-		if(category.equalsIgnoreCase("Tracks")){
-			this.getTrackDetails(productId);
-		}
-		if(category.equalsIgnoreCase("Artists")){
-			this.getArtistDetails(productId);
-		}
-	}
 
 	public Tracks getArtistDetails(String productId) {
 		Connection db=new DBConnection("mysql").getmysqlDBConnection();
@@ -249,11 +236,20 @@ public class CategoryDAO {
 			stmt=db.prepareStatement(query);
 			result=stmt.executeQuery();
 			while(result.next()){
-				trackObject.setTrackId(result.getString("TrackId"));;
-				trackObject.setAlbumId(result.getString("AlbumId"));
+				List<String> tmplist=new ArrayList<String>();
+				trackObject.setTrackId(result.getString("TrackId"));
+				trackObject.setAlbumId(result.getString("AlbumID"));
 				trackObject.setArtistId(result.getString("ArtistId"));
-				String[] genre=result.getString("GenreIdList").replace("|", "\t").split("\t");
-				trackObject.setGenreIdList(Arrays.asList(genre));
+				tmplist.add(result.getString(result.getString("Genre1")));
+				tmplist.add(result.getString(result.getString("Genre2")));
+				tmplist.add(result.getString(result.getString("Genre3")));
+				tmplist.add(result.getString(result.getString("Genre4")));
+				tmplist.add(result.getString(result.getString("Genre5")));
+				tmplist.add(result.getString(result.getString("Genre6")));
+				tmplist.add(result.getString(result.getString("Genre7")));
+				tmplist.add(result.getString(result.getString("Genre8")));
+				tmplist.add(result.getString(result.getString("Genre9")));
+				trackObject.setGenreIdList(tmplist);
 			}
 			return trackObject;
 		} catch (SQLException e) {
@@ -280,11 +276,20 @@ public class CategoryDAO {
 			stmt=db.prepareStatement(query);
 			result=stmt.executeQuery();
 			while(result.next()){
+				List<String> tmplist=new ArrayList<String>();
 				trackObject.setTrackId(result.getString("TrackId"));;
 				trackObject.setAlbumId(result.getString("AlbumId"));
 				trackObject.setArtistId(result.getString("ArtistId"));
-				String[] genre=result.getString("GenreIdList").replace("|", "\t").split("\t");
-				trackObject.setGenreIdList(Arrays.asList(genre));
+				tmplist.add(result.getString(result.getString("Genre1")));
+				tmplist.add(result.getString(result.getString("Genre2")));
+				tmplist.add(result.getString(result.getString("Genre3")));
+				tmplist.add(result.getString(result.getString("Genre4")));
+				tmplist.add(result.getString(result.getString("Genre5")));
+				tmplist.add(result.getString(result.getString("Genre6")));
+				tmplist.add(result.getString(result.getString("Genre7")));
+				tmplist.add(result.getString(result.getString("Genre8")));
+				tmplist.add(result.getString(result.getString("Genre9")));
+				trackObject.setGenreIdList(tmplist);
 			}
 			return trackObject;
 		} catch (SQLException e) {
@@ -302,6 +307,7 @@ public class CategoryDAO {
 	}
 
 	public Album getAlbumDetails(String productId) {
+		System.out.println("ProductID"+productId);
 		Connection db=new DBConnection("mysql").getmysqlDBConnection();
 		PreparedStatement stmt=null;
 		ResultSet result=null;
@@ -309,12 +315,25 @@ public class CategoryDAO {
 		String query="select * from Album where AlbumId=?";
 		try {
 			stmt=db.prepareStatement(query);
+			stmt.setString(1, productId);
 			result=stmt.executeQuery();
 			while(result.next()){
+				List<String> tmplist=new ArrayList<String>();
 				albumObject.setAlbumId(result.getString("AlbumId"));
 				albumObject.setArtistId(result.getString("ArtistId"));
-				String[] genre=result.getString("GenreIdList").replace("|", "\t").split("\t");
-				albumObject.setGenreIdList(Arrays.asList(genre));
+				System.out.println(result.getString("ArtistId"));
+				tmplist.add(result.getString("Genre1"));
+				System.out.println(result.getString("Genre1"));
+				tmplist.add(result.getString("Genre2"));
+				tmplist.add(result.getString("Genre3"));
+				tmplist.add(result.getString("Genre4"));
+				tmplist.add(result.getString("Genre5"));
+				tmplist.add(result.getString("Genre6"));
+				tmplist.add(result.getString("Genre7"));
+				tmplist.add(result.getString("Genre8"));
+				tmplist.add(result.getString("Genre9"));
+				albumObject.setGenreIdList(tmplist);
+				albumObject.setTrackIdList(this.getTracksWithAlbumId(productId));
 			}
 			return albumObject;
 		} catch (SQLException e) {
@@ -329,6 +348,39 @@ public class CategoryDAO {
 				return null;
 			}
 		}
+	}
+
+	private List<String> getTracksWithAlbumId(String productId) {
+		List<String> listTracks=new ArrayList<String>();
+		Connection db=new DBConnection("mysql").getmysqlDBConnection();
+		PreparedStatement stmt=null;
+		ResultSet result=null;
+		String query="select TrackId from Tracks where AlbumId=?";
+		try {
+			stmt=db.prepareStatement(query);
+			stmt.setString(1, productId);
+			result=stmt.executeQuery();
+			while(result.next()){
+				System.out.println(result.getString("TrackId"));
+				listTracks.add(result.getString("TrackId"));
+			}
+			return listTracks;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				db.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+
+	public Tracks getGenreDetails(String productId) {
+		return null;
 	}
 	
 }

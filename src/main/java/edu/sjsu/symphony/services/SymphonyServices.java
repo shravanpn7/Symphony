@@ -21,6 +21,8 @@ import edu.sjsu.symphony.DAO.CategoryDAO;
 import edu.sjsu.symphony.DAO.CreditCardDAO;
 import edu.sjsu.symphony.DAO.CustomerDAO;
 import edu.sjsu.symphony.DAO.ProductDAO;
+import edu.sjsu.symphony.POJO.Album;
+import edu.sjsu.symphony.POJO.Cart;
 import edu.sjsu.symphony.POJO.CreditCard;
 import edu.sjsu.symphony.POJO.Order;
 import edu.sjsu.symphony.POJO.Product;
@@ -103,12 +105,22 @@ public class SymphonyServices {
 	@Path("/Product/{category}/{productId}")
 	@GET
 	public Response getProductDetails(@PathParam("category") String category, @PathParam("productId") String productId){
-		Product product=new ProductDAO().getProductfromID(productId);
-		if(product==null){
-			userMap.put("Error", "Unable to retreive the product details at this moment. Please try again later.");
-			return Response.ok(new Viewable("/Error.jsp", userMap)).build();
+		System.out.println(category);
+		System.out.println(productId);
+		if(category.equalsIgnoreCase("Album")){
+			System.out.println("Album");
+			userMap.put("AlbumDetails",new CategoryDAO().getAlbumDetails(productId));
+			return Response.ok(new Viewable("/Album.jsp", userMap)).build();
 		}
-		return Response.ok(new Viewable("/Product.jsp", product)).build();
+		if(category.equalsIgnoreCase("Tracks")){
+			userMap.put("TrackDetails",new CategoryDAO().getTrackDetails(productId));
+			return Response.ok(new Viewable("/Tracks.jsp", userMap)).build();
+		}
+		if(category.equalsIgnoreCase("Artists")){
+			userMap.put("ArtistDetails",new CategoryDAO().getArtistDetails(productId));
+			return Response.ok(new Viewable("/Artist.jsp", userMap)).build();
+		}
+		return null;
 	}
 	
 	@Path("/ViewMyCart")
@@ -117,27 +129,21 @@ public class SymphonyServices {
 		HttpSession session=request.getSession(false);
 		String customerID= (String)session.getAttribute("customerID");
 		CustomerDAO customer=new CustomerDAO();
-		List<Product> productList=customer.viewCart(customerID);
+		List<Cart> productList=customer.viewCart(customerID);
 		if(productList==null){
 			userMap.put("Error", "Unable to retreive the product details at this moment. Please try again later.");
 			return Response.ok(new Viewable("/Error.jsp", userMap)).build();
 		}
-		double grandTotal=customer.getGrandTotal(productList);
-		userMap.put("GrandTotal", grandTotal);
 		userMap.put("ProductList", productList);
 		return Response.ok(new Viewable("/MyCart.jsp", userMap)).build();
 	}
 	
 	@Path("/AddToMyCart/{productId}")
 	@POST
-	public void addToCart(@PathParam("productId") String productID, @FormParam("quantity") String quantity, @Context HttpServletRequest request){
+	public void addToCart(@PathParam("productId") String productID, @Context HttpServletRequest request){
 		HttpSession session=request.getSession(false);
-		String customerName= (String)session.getAttribute("customername");
 		String customerID=(String)session.getAttribute("customerID");
-		int intQuantity=Integer.parseInt(quantity);
-		if(intQuantity!=0){
-			new CustomerDAO().addToCart(customerName, customerID, productID, intQuantity);
-		}
+		new CustomerDAO().addToCart(customerID, productID);
 	}
 	
 	@Path("/DeleteFromCart/{productId}")
@@ -198,18 +204,17 @@ public class SymphonyServices {
 	@POST
 	public Response processOrder(@FormParam("address") String address, @FormParam("card") String creditCard, @Context HttpServletRequest request){
 		HttpSession session=request.getSession(false);
-		String customerName=(String)session.getAttribute("customername");
 		String customerID=(String)session.getAttribute("customerID");
 		if(address==null || address.equalsIgnoreCase("") || creditCard==null || creditCard.equalsIgnoreCase("")){
 			userMap.put("Error", "Please enter the shipping address and credit card number to proceed with checkout");
 			return Response.ok(new Viewable("/Error.jsp", userMap)).build();
 		}
-		boolean isHistoryCreated=new CustomerDAO().addOrderHistory(customerID, customerName, address, creditCard);
-		if(!isHistoryCreated){
+		//boolean isHistoryCreated=new CustomerDAO().addOrderHistory(customerID, customerName, address, creditCard);
+		/*if(!isHistoryCreated){
 			userMap.put("Error", "Sorry, couldn't process your order. Try again later");
 			return Response.ok(new Viewable("/Error.jsp", userMap)).build();
-		}
-		userMap.put("Message", "Your order is placed successfully. Thank You for shopping at Ametronics.");
+		}*/
+		userMap.put("Message", "Your order is placed successfully. Thank You for shopping at Symphony.");
 		return Response.ok(new Viewable("/Success.jsp",userMap)).build();
 	}
 	
@@ -231,7 +236,7 @@ public class SymphonyServices {
 	@POST
 	public Response logout(@Context HttpServletRequest request){
 		request.getSession(false).invalidate();
-		return Response.ok(new Viewable("/Home.jsp", userMap)).build();
+		return Response.ok(new Viewable("/Login.jsp", userMap)).build();
 	}
 
   @Path("/Search")

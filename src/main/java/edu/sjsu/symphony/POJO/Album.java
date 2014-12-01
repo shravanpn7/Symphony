@@ -7,6 +7,8 @@ public class Album {
 	private String albumId=null;
 	private String artistId=null;
 	private List<String> genreIdList=null;
+	private List<String> trackIdList=null;
+
 	
 	public String getAlbumId() {
 		return albumId;
@@ -26,4 +28,11 @@ public class Album {
 	public void setGenreIdList(List<String> genreIdList) {
 		this.genreIdList = genreIdList;
 	}
+	public List<String> getTrackIdList() {
+		return trackIdList;
+	}
+	public void setTrackIdList(List<String> trackIdList) {
+		this.trackIdList = trackIdList;
+	}
+	
 }

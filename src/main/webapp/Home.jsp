@@ -40,10 +40,15 @@
            
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="/Symphony/Feedback.jsp">${customerId}</a></li>
           	  <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
-              <li><a href="/Symphony/About.jsp">MyCart</a></li>
-              <li><a href="/Symphony/Login.jsp">Logout </a></li>
+              <li>
+              	<form action="/Symphony/Symphony/Symphony/ViewMyCart" method="post">
+					<input id="headersubmit" type="submit" name="MyCart" value="MyCart">
+				</form>
+              </li>
+              <li><form action="/Symphony/Symphony/Symphony/Logout" method="post">
+					<input id="headersubmit" type="submit" name="Logout" value="Logout">
+				</form></li>
           </ul>
         </div><!-- /.nav-collapse -->
         </div>
@@ -60,32 +65,37 @@
           </ul>
           
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-         
-     		<h1 class="page-header">${it.Category}</h1> 
-    	 <div class="music">
-     	
-		     
-				<c:forEach var="product" items="${it.ProductList}">
-				<p style="border:2px solid #000; float:left; border-radius:10px; box-shadow: 0px 0px 13px 1px; width: 200px; background-color: #f5f5f5; margin: 25px; padding: 25px 0px; text-align: center; ">
-					
-					<a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}">
-					<i class="fa fa-music fa-5x"></i> <br/><br/>
-							
-						<span style="font-size:1.7em;">	${product}</span>
-						
-							
-					</a>
-					
-				</p>
-				</c:forEach>
-			</ul>
-			
-			</div>
+
     	</div>
     </div>
-   </div>
-    
+	
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">        
+
+     <h1 class="page-header">${it.Category}</h1> 
+
+    	<div class="music"> 
+
+	<c:forEach var="product" items="${it.ProductList}">
+
+	<a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}">
+
+	<p style="border:2px solid #000; float:left; border-radius:10px; box-shadow: 0px 0px 13px 1px; width: 200px; background-color: #f5f5f5; margin: 25px; padding: 25px 0px; text-align: center; ">
+
+	<i class="fa fa-music fa-5x"></i> <br/><br/>
+
+	<span style="font-size:1.7em;">	${product}</span>
+
+	</p>
+
+	</a>
+
+	</c:forEach>
+
+	</ul>
+
+</div>
+
+    </div>    
 
     
 	<%String customername=(String)request.getSession(false).getAttribute("customername"); %>

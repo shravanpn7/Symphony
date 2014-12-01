@@ -15,6 +15,7 @@ import java.util.Set;
 
 import redis.clients.jedis.Jedis;
 import edu.sjsu.symphony.DB.DBConnection;
+import edu.sjsu.symphony.POJO.Cart;
 import edu.sjsu.symphony.POJO.Order;
 import edu.sjsu.symphony.POJO.Product;
 
@@ -173,18 +174,17 @@ public class CustomerDAO {
 		}	
 	}
 	
-	public boolean addToCart(String customerName, String customerID, String productID, int quantity){
+	public boolean addToCart(String customerID, String productID){
 		Connection db=new DBConnection("mysql").getmysqlDBConnection();
 		PreparedStatement stmt=null;
 		int result=0;
-		String query="insert into Cart values(?,?,?,?,?)";
+		String query="insert into Cart values(?,?,?)";
 		try {
 			stmt=db.prepareStatement(query);
 			stmt.setString(1, customerID);
-			stmt.setString(2, customerName);
-			stmt.setString(3, productID);
-			stmt.setInt(4, quantity);
-			stmt.setDouble(5, new ProductDAO().getPrice(productID) * quantity);
+			stmt.setString(2, productID);
+			stmt.setDouble(3, 100);
+		
 			result=stmt.executeUpdate();
 			if(result>=1)
 				return true;
@@ -232,25 +232,23 @@ public class CustomerDAO {
 		}
 	}
 	
-	public List<Product> viewCart(String customerID){
+	public List<Cart> viewCart(String customerID){
 		Connection db=new DBConnection("mysql").getmysqlDBConnection();
 		PreparedStatement stmt=null;
 		ResultSet result=null;
-		List<Product> productList=new ArrayList<Product>();
-		String query="select ProductID, Quantity from Cart where CustomerID=?";
+		List<Cart> productList=new ArrayList<Cart>();
+		String query="select ProductID, TotalPrice from Cart where CustomerID=?";
 		try {
 			stmt=db.prepareStatement(query);
 			stmt.setString(1, customerID);
 			result=stmt.executeQuery();
 			while(result.next()){
+				Cart tmpCart=new Cart();
 				String productID=result.getString("ProductID");
 				System.out.println("Product ID is: "+productID);
-				Product tempProduct=new ProductDAO().getProductfromID(productID);
-				int quantity=result.getInt("Quantity");
-				System.out.println("Quantity is:"+ quantity);
-				tempProduct.setQuantity(quantity);
-				tempProduct.setTotalPrice(tempProduct.getPrice()*quantity);
-				productList.add(tempProduct);
+				tmpCart.setProduct(productID);
+				tmpCart.setPrice(Double.parseDouble(result.getString("TotalPrice")));
+				productList.add(tmpCart);
 			}
 			return productList;
 		} catch (SQLException e) {
@@ -362,7 +360,7 @@ public class CustomerDAO {
 		return grandTotal;
 	}
 
-	public boolean addOrderHistory(String customerID, String customerName, String address, String creditCard) {
+	/*public boolean addOrderHistory(String customerID, String customerName, String address, String creditCard) {
 		Jedis jedis=new Jedis("localhost");
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -384,7 +382,7 @@ public class CustomerDAO {
 		jedis.hset(orderNo, "Credit Card Number", creditCard);
 		jedis.close();
 		return true;
-	}
+	}*/
 
 	private String formatProductView(List<Product> productList) {
 		String productListHtml="<html><body><table border=\"1%\">";

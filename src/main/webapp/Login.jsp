@@ -52,8 +52,12 @@
        		<div id="navbar" class="collapse navbar-collapse">
 	          <ul class="nav navbar-nav navbar-right">
 	              <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
-	              <li><a href="/Symphony/Symphony/Symphony/ViewMyCart">MyCart</a></li>
-	              <li><a href="/Symphony/Symphony/Symphony/Logout">Logout</a></li>
+              <li>
+              	<form action="/Symphony/Symphony/Symphony/ViewMyCart" method="post">
+					<input id="headersubmit" type="submit" name="MyCart" value="MyCart">
+				</form>
+              </li>
+              <li><a href="/Symphony/Login.jsp">Logout </a></li>
 	          </ul>
 	        </div><!-- /.nav-collapse -->
 	   </c:otherwise>

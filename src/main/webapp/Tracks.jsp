@@ -32,9 +32,17 @@
            
           </ul>
           <ul class="nav navbar-nav navbar-right">
-          	  <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
-              <li><a href="/Symphony/About.jsp">About</a></li>
-              <li><a href="/Symphony/Login.jsp">Logout</a></li>
+          	 <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
+              <li>
+              	<form action="/Symphony/Symphony/Symphony/ViewMyCart" method="post">
+					<input id="headersubmit" type="submit" name="MyCart" value="MyCart">
+				</form>
+              </li>
+              <li>
+              	<form action="/Symphony/Symphony/Symphony/Logout" method="post">
+					<input id="headersubmit" type="submit" name="Logout" value="Logout">
+				</form>
+              </li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -42,11 +50,50 @@
     
     <div class="container">
     <br/><br/>
-     <h1 style="text-align:center;">Track page</h1> 
-    <a href="/Symphony/Home.jsp"><< Back</a> <br/><br/>
+     <h1 style="text-align:center;">Tracks page</h1> 
      
-    Track image
-    Track title
+     <div class="music">
+     		<table border="10px">
+
+		<tr>
+			<td>TrackId</td>
+			<td>${it.TrackDetails.getTrackId()}</td>
+		</tr>
+		
+		<tr>
+			<td>ArtistId</td>
+			<td>${it.TrackDetails.getArtistId()}</td>
+		</tr>
+		
+		<tr>
+			<td>AlbumId</td>
+			<td>${it.TrackDetails.getAlbumId()}</td>
+		</tr>
+		
+		<tr>
+		<td>Genre</td>
+		<c:forEach var="genre" items="${it.TrackDetails.getGenreIdList()}">
+			<td>${genre}</td>
+		</c:forEach>
+		</tr>
+		
+		
+		<tr>
+			<td>Price</td>
+			<td>$100</td>
+		</tr>
+		
+		<tr>
+			<td>
+			<form name="addCartForm" action="/Symphony/Symphony/Symphony/AddToMyCart/${it.TrackDetails.getTrackId()}" method="post">
+				<input type="submit" name="Add to Cart" value="Add to Cart">
+			</form>
+			</td>
+		</tr>
+		
+	</table>
+				
+			</div>
 
     </div> <!-- /container -->
     
