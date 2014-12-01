@@ -1,4 +1,4 @@
-package edu.sjsu.shoppingcart.DAO;
+package edu.sjsu.symphony.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.sjsu.shoppingcart.DB.DBConnection;
-import edu.sjsu.shoppingcart.POJO.CreditCard;
+import edu.sjsu.symphony.DB.DBConnection;
+import edu.sjsu.symphony.POJO.CreditCard;
 
 public class CreditCardDAO {
 

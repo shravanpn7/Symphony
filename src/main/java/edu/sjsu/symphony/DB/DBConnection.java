@@ -1,4 +1,4 @@
-package edu.sjsu.shoppingcart.DB;
+package edu.sjsu.symphony.DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

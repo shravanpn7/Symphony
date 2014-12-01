@@ -5,9 +5,9 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   
-   <!--  <listener>
-  	<listener-class>edu.sjsu.shoppingcart.session.SessionListener</listener-class>
-  </listener> -->
+    <listener>
+  	<listener-class>edu.sjsu.symphony.session.SessionListener</listener-class>
+  	</listener>
   
   <servlet>
   	<servlet-name>Jersey Web Application</servlet-name>

@@ -1,4 +1,4 @@
-package edu.sjsu.shoppingcart.DAO;
+package edu.sjsu.symphony.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.sjsu.shoppingcart.DB.DBConnection;
-import edu.sjsu.shoppingcart.POJO.Album;
-import edu.sjsu.shoppingcart.POJO.Tracks;
+import edu.sjsu.symphony.DB.DBConnection;
+import edu.sjsu.symphony.POJO.Album;
+import edu.sjsu.symphony.POJO.Tracks;
 
 public class CategoryDAO {
 

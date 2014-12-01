@@ -17,13 +17,13 @@ import javax.ws.rs.core.Response;
 
 import com.sun.jersey.api.view.Viewable;
 
-import edu.sjsu.shoppingcart.DAO.CategoryDAO;
-import edu.sjsu.shoppingcart.DAO.CreditCardDAO;
-import edu.sjsu.shoppingcart.DAO.CustomerDAO;
-import edu.sjsu.shoppingcart.DAO.ProductDAO;
-import edu.sjsu.shoppingcart.POJO.CreditCard;
-import edu.sjsu.shoppingcart.POJO.Order;
-import edu.sjsu.shoppingcart.POJO.Product;
+import edu.sjsu.symphony.DAO.CategoryDAO;
+import edu.sjsu.symphony.DAO.CreditCardDAO;
+import edu.sjsu.symphony.DAO.CustomerDAO;
+import edu.sjsu.symphony.DAO.ProductDAO;
+import edu.sjsu.symphony.POJO.CreditCard;
+import edu.sjsu.symphony.POJO.Order;
+import edu.sjsu.symphony.POJO.Product;
 
 
 @Path("/Symphony")
@@ -34,34 +34,22 @@ public class SymphonyServices {
 	@Path("/LogIn")
 	@POST
 	public Response login(@FormParam("Username") String customerID, @FormParam("Password") String password, @Context HttpServletRequest request){
-		String message=new CustomerDAO().validateCredentials(customerID, password);
-		if(message.equalsIgnoreCase("valid user")){
-			String validID=new CustomerDAO().validateCustomerId(customerID);
-			if(validID.equalsIgnoreCase("error")){
-				userMap.put("Error", "Unable to connect to database. Try again later.");
-				return Response.ok(new Viewable("/Error.jsp", userMap)).build();
-			}
-			if(validID.equalsIgnoreCase("User doesnot exist")){
-				userMap.put("Error", "User with given Email id doesnot exist");
-				return Response.ok(new Viewable("/Error.jsp", userMap)).build();
-			}
-			HttpSession session= request.getSession(true);
-			session.setAttribute("customerID", customerID);
-			//return this.getProductsInCategory("Album");
-			List<String> itemIdList=new CategoryDAO().getTopNList(customerID);
-			userMap.put("Category", "Top N Recommendations");
-			userMap.put("ProductList", itemIdList);
-			//System.out.println("********"+itemIdList);
-			return Response.ok(new Viewable("/Home.jsp", userMap)).build();
-		}
-		else if(message.equalsIgnoreCase("error")){
+		String validID=new CustomerDAO().validateCustomerId(customerID, password);
+		if(validID.equalsIgnoreCase("error")){
 			userMap.put("Error", "Unable to connect to database. Try again later.");
 			return Response.ok(new Viewable("/Error.jsp", userMap)).build();
 		}
-		else{
-			userMap.put("Message", "Incorrect email or password. Please re-enter username and password");
-			return Response.ok(new Viewable("/Login.jsp", userMap)).build();
+		if(validID.equalsIgnoreCase("Invalid User")){
+			return Response.ok(new Viewable("/Home.jsp", userMap)).build();
 		}
+		HttpSession session= request.getSession(true);
+		session.setAttribute("customerID", customerID);
+		System.out.println("session"+session.getAttribute("customerID"));
+		List<String> itemIdList=new CategoryDAO().getTopNList(customerID);
+		userMap.put("Category", "Top N Recommendations");
+		userMap.put("ProductList", itemIdList);
+		return Response.ok(new Viewable("/Home.jsp", userMap)).build();
+		
 	}
 	
 	@Path("/UserRegistration")

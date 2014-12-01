@@ -1,4 +1,4 @@
-package edu.sjsu.shoppingcart.POJO;
+package edu.sjsu.symphony.POJO;
 
 public class Product {
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="edu.sjsu.shoppingcart.POJO.Product" %>
+<%@ page import="edu.sjsu.symphony.POJO.Product" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,6 +14,9 @@
 <title>Symphony - Home</title>
 </head>
 <body>
+
+	<%String customerId=(String)request.getSession(false).getAttribute("customerID");
+	%>
 	
 	 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container-fluid">
@@ -24,15 +27,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" style="font-style:oblique;font-size:1.8em;" href="/Symphony/Home.jsp">Symphony</a>
-        </div>
+		<c:choose>
+          	<c:when test="${customerId ne null}">
+          		<a class="navbar-brand" style="font-style:oblique;font-size:1.8em;" href="/Symphony/Home.jsp">Symphony</a>
+          	</c:when>
+          	<c:otherwise>
+          	    <a class="navbar-brand" style="font-style:oblique;font-size:1.8em;" href="/Symphony/Login.jsp">Symphony</a>
+          	</c:otherwise>
+          </c:choose>        </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
            
           </ul>
           <ul class="nav navbar-nav navbar-right">
+              <li><a href="/Symphony/Feedback.jsp">${customerId}</a></li>
           	  <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
-              <li><a href="/Symphony/About.jsp">About</a></li>
+              <li><a href="/Symphony/About.jsp">MyCart</a></li>
               <li><a href="/Symphony/Login.jsp">Logout </a></li>
           </ul>
         </div><!-- /.nav-collapse -->
@@ -58,7 +68,6 @@
 		     
 				<c:forEach var="product" items="${it.ProductList}">
 				<p style="border:2px solid #000; float:left; border-radius:10px; box-shadow: 0px 0px 13px 1px; width: 200px; background-color: #f5f5f5; margin: 25px; padding: 25px 0px; text-align: center; ">
-					<!--  a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}"-->
 					
 					<a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}">
 					<i class="fa fa-music fa-5x"></i> <br/><br/>

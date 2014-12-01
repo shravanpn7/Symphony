@@ -1,4 +1,4 @@
-package edu.sjsu.shoppingcart.DAO;
+package edu.sjsu.symphony.DAO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import edu.sjsu.shoppingcart.DB.DBConnection;
-import edu.sjsu.shoppingcart.POJO.Product;
+import edu.sjsu.symphony.DB.DBConnection;
+import edu.sjsu.symphony.POJO.Product;
 import redis.clients.jedis.Jedis;
 
 public class ProductDAO {

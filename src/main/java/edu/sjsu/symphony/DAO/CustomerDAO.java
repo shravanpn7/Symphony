@@ -1,4 +1,4 @@
-package edu.sjsu.shoppingcart.DAO;
+package edu.sjsu.symphony.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,9 +14,9 @@ import java.util.Random;
 import java.util.Set;
 
 import redis.clients.jedis.Jedis;
-import edu.sjsu.shoppingcart.DB.DBConnection;
-import edu.sjsu.shoppingcart.POJO.Order;
-import edu.sjsu.shoppingcart.POJO.Product;
+import edu.sjsu.symphony.DB.DBConnection;
+import edu.sjsu.symphony.POJO.Order;
+import edu.sjsu.symphony.POJO.Product;
 
 public class CustomerDAO {
 
@@ -415,5 +415,35 @@ public class CustomerDAO {
 			}
 		}
 		return orderList;
+	}
+
+	public String validateCustomerId(String customerID, String password) {
+		Connection db=new DBConnection("mysql").getmysqlDBConnection();
+		PreparedStatement stmt=null;
+		ResultSet result=null;
+		String query="select Password from Customer where CustomerId=?";
+		try {
+			stmt=db.prepareStatement(query);
+			stmt.setString(1, customerID);
+			result=stmt.executeQuery();
+			if(result.next()){
+				System.out.println("Password"+result.getString("Password"));
+				if(result.getString("Password").equalsIgnoreCase(password))
+					System.out.println("Valid User");
+					return "valid user";
+			}
+			return "invalid user";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "error";
+		}
+		finally{
+			try {
+				db.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}
 	}
 }

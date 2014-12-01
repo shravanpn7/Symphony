@@ -3,7 +3,7 @@ package edu.sjsu.symphony.populate;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import edu.sjsu.shoppingcart.DB.DBConnection;
+import edu.sjsu.symphony.DB.DBConnection;
 
 public class MainProgram {
 

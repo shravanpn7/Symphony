@@ -17,6 +17,8 @@
 </head>
 <body style="background-image:url('Images/loginbg.jpg'); background-size:100%;">
 	
+	<%String customerId=(String)session.getAttribute("customerID"); %>
+	
 	 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -26,17 +28,36 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" style="font-style:oblique;font-size:1.8em;" href="/Symphony/Home.jsp">Symphony</a>
+          
+          <c:choose>
+          	<c:when test="${customerId ne null}">
+          		<a class="navbar-brand" style="font-style:oblique;font-size:1.8em;" href="/Symphony/Home.jsp">Symphony</a>
+          	</c:when>
+          	<c:otherwise>
+          	    <a class="navbar-brand" style="font-style:oblique;font-size:1.8em;" href="/Symphony/Login.jsp">Symphony</a>
+          	</c:otherwise>
+          </c:choose>
+          
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-           
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-              <li><a href="/Symphony/SignUp.jsp">SignUp</a></li>
-              <li><a href="/Symphony/About.jsp">About</a></li>
-          </ul>
-        </div><!-- /.nav-collapse -->
+        <c:choose>
+        <c:when test="${customerId eq null}">
+	        <div id="navbar" class="collapse navbar-collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	              <li><a href="/Symphony/SignUp.jsp">SignUp</a></li>
+	              <li><a href="/Symphony/About.jsp">About</a></li>
+	          </ul>
+	        </div><!-- /.nav-collapse -->
+       </c:when>
+       <c:otherwise>
+       		<div id="navbar" class="collapse navbar-collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	              <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
+	              <li><a href="/Symphony/Symphony/Symphony/ViewMyCart">MyCart</a></li>
+	              <li><a href="/Symphony/Symphony/Symphony/Logout">Logout</a></li>
+	          </ul>
+	        </div><!-- /.nav-collapse -->
+	   </c:otherwise>
+	   </c:choose>
       </div><!-- /.container -->
     </nav><!-- /.navbar -->	
     

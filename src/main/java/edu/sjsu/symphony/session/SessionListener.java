@@ -1,16 +1,16 @@
-package edu.sjsu.shoppingcart.session;
+package edu.sjsu.symphony.session;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import edu.sjsu.shoppingcart.DAO.CustomerDAO;
+import edu.sjsu.symphony.DAO.CustomerDAO;
 
 public class SessionListener implements HttpSessionListener{
 
 	public void sessionCreated(HttpSessionEvent event) {
 		HttpSession session=event.getSession();
-		System.out.println("session attribute is "+session.getAttribute("customername"));
+		System.out.println("session attribute is "+session.getAttribute("customerID"));
 		
 	}
 
