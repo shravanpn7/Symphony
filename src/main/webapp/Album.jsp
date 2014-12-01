@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    
+<%@ page import="edu.sjsu.shoppingcart.POJO.Product" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,10 +12,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
 
-<title>LogIn</title>
-<script type="text/javascript" src="/Symphony/Javascript/Validation.js"></script>
+<title>Symphony - Home</title>
 </head>
-<body style="background-image:url('Images/loginbg.jpg'); background-size:100%;">
+<body style="background-color:#eee;background-size:100%;">
 	
 	 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container-fluid">
@@ -33,29 +32,26 @@
            
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="/Symphony/SignUp.jsp">SignUp</a></li>
+          	  <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
               <li><a href="/Symphony/About.jsp">About</a></li>
+              <li><a href="/Symphony/Login.jsp">Logout</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->	
     
     <div class="container">
-      <form class="form-signin" action="/Symphony/Symphony/Symphony/LogIn" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="Username" class="sr-only">Email address</label>
-        <input id="inputEmail" name="Username" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+    <br/><br/>
+     <h1 style="text-align:center;">Album page</h1> 
+     <a href="/Symphony/Home.jsp"><< Back</a> <br/>
+     <br/>
+     
+    Album image
+    Album title
 
     </div> <!-- /container -->
+    
+	<%String customername=(String)request.getSession(false).getAttribute("customername"); %>
 	
 </body>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>

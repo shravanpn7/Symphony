@@ -18,7 +18,7 @@ public class DBConnection {
 		if(database.equalsIgnoreCase("mysql")){
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				this.mysqlDBConnection=DriverManager.getConnection("jdbc:mysql://cmpe282.cmyhjohacafg.us-west-2.rds.amazonaws.com:3306/Symphony", "root", "root");
+				this.mysqlDBConnection=DriverManager.getConnection("jdbc:mysql://symphony.cmyhjohacafg.us-west-2.rds.amazonaws.com:3306/Symphony", "root", "password");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {

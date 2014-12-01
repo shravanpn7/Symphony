@@ -11,13 +11,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
+<script type="text/javascript" src="/ShoppingCart/Javascript/Validation.js"></script>
 
-<title>LogIn</title>
-<script type="text/javascript" src="/Symphony/Javascript/Validation.js"></script>
+<title>Sign Up</title>
 </head>
-<body style="background-image:url('Images/loginbg.jpg'); background-size:100%;">
-	
-	 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+<body style="background-image:url('Images/signupbg.jpg'); background-size:100%;">	
+  <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -30,34 +29,43 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-           
+       
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="/Symphony/SignUp.jsp">SignUp</a></li>
+              <li><a href="/Symphony/Login.jsp">Login</a></li>
               <li><a href="/Symphony/About.jsp">About</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->	
-    
-    <div class="container">
-      <form class="form-signin" action="/Symphony/Symphony/Symphony/LogIn" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="Username" class="sr-only">Email address</label>
-        <input id="inputEmail" name="Username" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password" required>
+		      
+	<br/><br/>
+
+	<div class="container">
+      <form class="form-signin" action="/Symphony/Symphony/Symphony/UserRegistration" method="post" onsubmit="return validateSignUp()">
+        <h2 class="form-signin-heading" style="color:white;">Please sign up</h2>
+        <input type="text" id="firstName" class="form-control" placeholder="First Name" required autofocus>
+        <input type="text" id="middleName" class="form-control" placeholder="Middle Name" required>
+        <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+        <input type="text" id="street" class="form-control" placeholder="Street" required>
+        <input type="text" id="apt" class="form-control" placeholder="Apt No." required>
+        <input type="text" id="city" class="form-control" placeholder="City" required>
+        <input type="text" id="state" class="form-control" placeholder="State" required>
+        <input type="text" id="zip" class="form-control" placeholder="ZipCode" required>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me" > <span style="color:white;">Remember me</span>
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
       </form>
 
     </div> <!-- /container -->
 	
 </body>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
 </html>

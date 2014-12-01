@@ -6,21 +6,50 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.sjsu.shoppingcart.DB.DBConnection;
 import edu.sjsu.shoppingcart.POJO.Album;
 import edu.sjsu.shoppingcart.POJO.Tracks;
 
-public class AlbumDAO {
+public class CategoryDAO {
 
+	
+	public Map<String, String> getTopNList(String customerID){
+		Connection db=new DBConnection("mysql").getmysqlDBConnection();
+		PreparedStatement stmt=null;
+		ResultSet result=null;
+		
+		Map<String, String> topNMap=new HashMap<String, String>();
+		String query="select ITEM, VALUE from USER_RECO where USER_ID = "+customerID;
+		try {
+			stmt=db.prepareStatement(query);
+			result=stmt.executeQuery();
+			while(result.next())
+				topNMap.put(result.getString("ITEM"), result.getString("VALUE"));
+			return topNMap;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				db.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
 	
 	public List<String> getItemList(String category){
 		Connection db=new DBConnection("mysql").getmysqlDBConnection();
 		PreparedStatement stmt=null;
 		ResultSet result=null;
 		List<String> albumIdList=new ArrayList<String>();
-		String query="select AlbumId from "+category;
+		String query="select AlbumId from "+category+" limit 50";
 		try {
 			stmt=db.prepareStatement(query);
 			result=stmt.executeQuery();
@@ -40,6 +69,83 @@ public class AlbumDAO {
 			}
 		}
 	}
+	
+	public List<String> getTrackList(String category){
+		Connection db=new DBConnection("mysql").getmysqlDBConnection();
+		PreparedStatement stmt=null;
+		ResultSet result=null;
+		List<String> trackIdList=new ArrayList<String>();
+		String query="select TrackId from "+category+" limit 50";
+		try {
+			stmt=db.prepareStatement(query);
+			result=stmt.executeQuery();
+			while(result.next())
+				trackIdList.add(result.getString("TrackId"));
+			return trackIdList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				db.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+	public List<String> getArtistsList(String category){
+		Connection db=new DBConnection("mysql").getmysqlDBConnection();
+		PreparedStatement stmt=null;
+		ResultSet result=null;
+		List<String> artistIdList=new ArrayList<String>();
+		String query="select ArtistId from "+category+" limit 50";
+		try {
+			stmt=db.prepareStatement(query);
+			result=stmt.executeQuery();
+			while(result.next())
+				artistIdList.add(result.getString("ArtistId"));
+			return artistIdList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				db.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+	public List<String> getGenreList(String category){
+		Connection db=new DBConnection("mysql").getmysqlDBConnection();
+		PreparedStatement stmt=null;
+		ResultSet result=null;
+		List<String> genreList=new ArrayList<String>();
+		String query="select GenreId from "+category+" limit 50";
+		try {
+			stmt=db.prepareStatement(query);
+			result=stmt.executeQuery();
+			while(result.next())
+				genreList.add(result.getString("GenreId"));
+			return genreList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				db.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+	
 	
 	public List<String> getSearchDetails(String category, String searchString){
 	  Connection db=new DBConnection("mysql").getmysqlDBConnection();

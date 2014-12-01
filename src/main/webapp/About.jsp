@@ -6,8 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="/Symphony/Stylesheets/Webpages.css" type="text/css">
 <link rel="stylesheet" href="/Symphony/Stylesheets/style.css" type="text/css">
+<link rel="stylesheet" href="/Symphony/Stylesheets/Webpages.css" type="text/css">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
@@ -15,10 +16,10 @@
 <title>LogIn</title>
 <script type="text/javascript" src="/Symphony/Javascript/Validation.js"></script>
 </head>
-<body style="background-image:url('Images/loginbg.jpg'); background-size:100%;">
+<body style="background-color:#eee;background-size:100%;">
 	
 	 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-      <div class="container-fluid">
+       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -33,27 +34,17 @@
            
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="/Symphony/SignUp.jsp">SignUp</a></li>
-              <li><a href="/Symphony/About.jsp">About</a></li>
+              <li><a href="/Symphony/Home.jsp">Home</a></li>
+              <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
+              <li><a href="/Symphony/Login.jsp">Logout</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->	
     
     <div class="container">
-      <form class="form-signin" action="/Symphony/Symphony/Symphony/LogIn" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="Username" class="sr-only">Email address</label>
-        <input id="inputEmail" name="Username" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+    <br/><br/>
+     <h1 style="text-align:center;">About Page</h1> 
 
     </div> <!-- /container -->
 	

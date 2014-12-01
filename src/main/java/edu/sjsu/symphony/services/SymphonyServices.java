@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 
 import com.sun.jersey.api.view.Viewable;
 
-import edu.sjsu.shoppingcart.DAO.AlbumDAO;
+import edu.sjsu.shoppingcart.DAO.CategoryDAO;
 import edu.sjsu.shoppingcart.DAO.CreditCardDAO;
 import edu.sjsu.shoppingcart.DAO.CustomerDAO;
 import edu.sjsu.shoppingcart.DAO.ProductDAO;
@@ -33,10 +33,10 @@ public class SymphonyServices {
 
 	@Path("/LogIn")
 	@POST
-	public Response login(@FormParam("Username") String userName, @FormParam("Password") String password, @Context HttpServletRequest request){
-		String message=new CustomerDAO().validateCredentials(userName, password);
+	public Response login(@FormParam("Username") String customerID, @FormParam("Password") String password, @Context HttpServletRequest request){
+		String message=new CustomerDAO().validateCredentials(customerID, password);
 		if(message.equalsIgnoreCase("valid user")){
-			String customerName=new CustomerDAO().getCustomerName(userName);
+			String customerName=new CustomerDAO().getCustomerName(customerID);
 			if(customerName.equalsIgnoreCase("error")){
 				userMap.put("Error", "Unable to connect to database. Try again later.");
 				return Response.ok(new Viewable("/Error.jsp", userMap)).build();
@@ -46,8 +46,12 @@ public class SymphonyServices {
 				return Response.ok(new Viewable("/Error.jsp", userMap)).build();
 			}
 			HttpSession session= request.getSession(true);
-			session.setAttribute("customername", customerName);
+			session.setAttribute("customerID", customerID);
+			session.setAttribute("customerID", customerID);
 			return this.getProductsInCategory("Album");
+//			Map<String, String> topNMap=new CategoryDAO().getTopNList(customerID);
+//			
+//			return Response.ok(new Viewable("/Home.jsp", topNMap)).build();
 		}
 		else if(message.equalsIgnoreCase("error")){
 			userMap.put("Error", "Unable to connect to database. Try again later.");
@@ -65,19 +69,46 @@ public class SymphonyServices {
 		String message=new CustomerDAO().createCustomer(firstName, middleName, lastName, email, street, aptNo, city, state, zipcode, Password);
 		if(message.equalsIgnoreCase("User Created")){
 			userMap.put("Message", message);
-			return Response.ok(new Viewable("/Login", userMap)).build();
+			return Response.ok(new Viewable("/Login.jsp", userMap)).build();
 		}
 		userMap.put("Error", "Error in adding user. Please try again later.");
 		return Response.ok(new Viewable("/Error.jsp", userMap)).build();
 	}
 	
-	@Path("/List")
-	@POST
-	public Response getProductsInCategory(@FormParam("category") String category){
-		List<String> productList=new AlbumDAO().getItemList(category);
-		userMap.put("Category", category);
-		userMap.put("ProductList", productList);
+	@Path("/List/{category}")
+	@GET
+	public Response getProductsInCategory(@PathParam("category") String category){
+		if(category.equalsIgnoreCase("Album"))
+		{
+			System.out.println("######## Album #############");
+			List<String> productList=new CategoryDAO().getItemList(category);
+			userMap.put("Category", category);
+			userMap.put("ProductList", productList);
+		}
+		else if(category.equalsIgnoreCase("Tracks"))
+		{
+			System.out.println("######## Track #############");
+			List<String> productList=new CategoryDAO().getTrackList(category);
+			userMap.put("Category", category);
+			userMap.put("ProductList", productList);
+		}
+		else if(category.equalsIgnoreCase("Artists"))
+		{
+			System.out.println("######## Artists #############");
+			List<String> productList=new CategoryDAO().getArtistsList(category);
+			userMap.put("Category", category);
+			userMap.put("ProductList", productList);
+		}
+		else if(category.equalsIgnoreCase("Genre"))
+		{
+			System.out.println("######## Artists #############");
+			List<String> productList=new CategoryDAO().getGenreList(category);
+			userMap.put("Category", category);
+			userMap.put("ProductList", productList);
+		}
+		
 		return Response.ok(new Viewable("/Home.jsp", userMap)).build();
+		
 	}
 	
 	@Path("/Product/{category}/{productId}")
@@ -218,7 +249,7 @@ public class SymphonyServices {
   @POST
   public Response search(@QueryParam("category") String category,
                          @QueryParam("search") String searchString) {    
-    List<String> searchResults = new AlbumDAO().getSearchDetails(category, searchString); 
+    List<String> searchResults = new CategoryDAO().getSearchDetails(category, searchString); 
     if(searchResults.isEmpty()) {
       userMap.put("Message", "No results found");
       return Response.ok(new Viewable("/Search.jsp", userMap)).build();
