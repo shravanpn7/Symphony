@@ -61,7 +61,7 @@
          
      <h1 style="text-align:center;">Album page</h1> 
     	 <div class="music">
-     		<table border="10px">
+     		<table height="350px" width="350px">
 
 		<tr>
 			<td>ArtistId</td>

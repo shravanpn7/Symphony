@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="edu.sjsu.symphony.POJO.Product" %>
+<%@ page import="edu.sjsu.symphony.POJO.Cart" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,11 +41,6 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	  <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
-              <li>
-              	<form action="/Symphony/Symphony/Symphony/ViewMyCart" method="post">
-					<input id="headersubmit" type="submit" name="MyCart" value="MyCart">
-				</form>
-              </li>
               <li><form action="/Symphony/Symphony/Symphony/Logout" method="post">
 					<input id="headersubmit" type="submit" name="Logout" value="Logout">
 				</form></li>
@@ -65,27 +60,40 @@
           </ul>
           
         </div>
-
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+         
+    	 <div class="music">
+     		
+			<c:set var="count" value="0" scope="page" />     		
+			<form action="/Symphony/Symphony/Symphony/CheckOut" method="post">
+			<table border="1px" height="40%" width=40%>
+     		<tr><td>Item</td><td>Price</td>
+     		
+     		<c:forEach var="product" items="${it.ProductList}">
+     			<tr>
+     				<td>${product.getProduct()}</td>
+     				<td>${product.getPrice()}</td>
+     				<c:set var="count" value="${count + 1}" scope="page"/>
+     			<tr>
+     		</c:forEach>
+     		<tr>
+     		
+     		<tr>
+     		<td>Grand Total</td>
+     		<td><span>$</span>${count*100}</td>
+     		</tr>
+     		
+     		<tr>
+     		<td><input id="submit" type="submit" name="CheckOut" value="CheckOut"></td>
+     		</tr>
+     		</table>
+     		</form>
+			
+			</div>
     	</div>
     </div>
-	
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">        
-
-     <h1 class="page-header">${it.Category}</h1> 
-    	<div class="music"> 
-	<c:forEach var="product" items="${it.ProductList}">
-	<a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}">
-	<p style="border:2px solid #000; float:left; border-radius:10px; box-shadow: 0px 0px 13px 1px; width: 200px; background-color: #f5f5f5; margin: 25px; padding: 25px 0px; text-align: center; ">
-	<i class="fa fa-music fa-5x"></i> <br/><br/>
-	<span style="font-size:1.7em;">	${product}</span>
-	</p>
-	</a>
-	</c:forEach>
-	</ul>
-
-</div>
-
-    </div>    
+   </div>
+    
 
     
 	<%String customername=(String)request.getSession(false).getAttribute("customername"); %>

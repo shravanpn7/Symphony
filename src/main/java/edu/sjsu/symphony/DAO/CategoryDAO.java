@@ -226,32 +226,35 @@ public class CategoryDAO {
     return searchResult;
   }
 
-	public Tracks getArtistDetails(String productId) {
+	public List<Tracks> getArtistDetails(String productId) {
 		Connection db=new DBConnection("mysql").getmysqlDBConnection();
 		PreparedStatement stmt=null;
 		ResultSet result=null;
-		Tracks trackObject=new Tracks();
+		List<Tracks> trackList=new ArrayList<Tracks>();
 		String query="select * from Tracks where ArtistId=?";
 		try {
 			stmt=db.prepareStatement(query);
+			stmt.setString(1, productId);
 			result=stmt.executeQuery();
 			while(result.next()){
+				Tracks trackObject=new Tracks();
 				List<String> tmplist=new ArrayList<String>();
 				trackObject.setTrackId(result.getString("TrackId"));
 				trackObject.setAlbumId(result.getString("AlbumID"));
 				trackObject.setArtistId(result.getString("ArtistId"));
-				tmplist.add(result.getString(result.getString("Genre1")));
-				tmplist.add(result.getString(result.getString("Genre2")));
-				tmplist.add(result.getString(result.getString("Genre3")));
-				tmplist.add(result.getString(result.getString("Genre4")));
-				tmplist.add(result.getString(result.getString("Genre5")));
-				tmplist.add(result.getString(result.getString("Genre6")));
-				tmplist.add(result.getString(result.getString("Genre7")));
-				tmplist.add(result.getString(result.getString("Genre8")));
-				tmplist.add(result.getString(result.getString("Genre9")));
+				tmplist.add(result.getString("Genre1"));
+				tmplist.add(result.getString("Genre2"));
+				tmplist.add(result.getString("Genre3"));
+				tmplist.add(result.getString("Genre4"));
+				tmplist.add(result.getString("Genre5"));
+				tmplist.add(result.getString("Genre6"));
+				tmplist.add(result.getString("Genre7"));
+				tmplist.add(result.getString("Genre8"));
+				tmplist.add(result.getString("Genre9"));
 				trackObject.setGenreIdList(tmplist);
+				trackList.add(trackObject);
 			}
-			return trackObject;
+			return trackList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -274,21 +277,22 @@ public class CategoryDAO {
 		String query="select * from Tracks where TrackId=?";
 		try {
 			stmt=db.prepareStatement(query);
+			stmt.setString(1, productId);
 			result=stmt.executeQuery();
 			while(result.next()){
 				List<String> tmplist=new ArrayList<String>();
 				trackObject.setTrackId(result.getString("TrackId"));;
 				trackObject.setAlbumId(result.getString("AlbumId"));
 				trackObject.setArtistId(result.getString("ArtistId"));
-				tmplist.add(result.getString(result.getString("Genre1")));
-				tmplist.add(result.getString(result.getString("Genre2")));
-				tmplist.add(result.getString(result.getString("Genre3")));
-				tmplist.add(result.getString(result.getString("Genre4")));
-				tmplist.add(result.getString(result.getString("Genre5")));
-				tmplist.add(result.getString(result.getString("Genre6")));
-				tmplist.add(result.getString(result.getString("Genre7")));
-				tmplist.add(result.getString(result.getString("Genre8")));
-				tmplist.add(result.getString(result.getString("Genre9")));
+				tmplist.add(result.getString("Genre1"));
+				tmplist.add(result.getString("Genre2"));
+				tmplist.add(result.getString("Genre3"));
+				tmplist.add(result.getString("Genre4"));
+				tmplist.add(result.getString("Genre5"));
+				tmplist.add(result.getString("Genre6"));
+				tmplist.add(result.getString("Genre7"));
+				tmplist.add(result.getString("Genre8"));
+				tmplist.add(result.getString("Genre9"));
 				trackObject.setGenreIdList(tmplist);
 			}
 			return trackObject;

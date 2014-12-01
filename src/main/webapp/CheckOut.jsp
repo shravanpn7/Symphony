@@ -40,7 +40,7 @@
            
           </ul>
           <ul class="nav navbar-nav navbar-right">
-          	  <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
+          	 <li><a href="/Symphony/Feedback.jsp">Feedback</a></li>
               <li>
               	<form action="/Symphony/Symphony/Symphony/ViewMyCart" method="post">
 					<input id="headersubmit" type="submit" name="MyCart" value="MyCart">
@@ -65,27 +65,60 @@
           </ul>
           
         </div>
-
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+         
+     		<h1 class="page-header">${it.Category}</h1> 
+    	 <div class="music">
+     		<form action="/Symphony/Symphony/Symphony/Purchase" method="post">
+		
+		<c:choose>
+			<c:when test="${it.Address ne null}">
+				<h3>Shipping Address:</h3>
+				<input type="radio" name="address" value="${it.Address}">
+				<h4 style="font-weight: normal;">${it.Address}</h4>
+			</c:when>
+			<c:otherwise>
+				<a href="/Symphony/AddCard">Add Shipping Address</a>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+		<c:when test="${it.CardList ne null}">
+		<h3>Credit Card:</h3><br>
+		<table border="1%">
+			<tr>
+				<td></td>
+				<td>Credit Card Number</td>
+				<td>Credit Card Type</td>
+				<td>Date of Expiry</td>
+				<td>Name on Card</td>
+				<td>CVN</td>
+			</tr>
+			<c:forEach var="card" items="${it.CardList}">
+			<tr>
+				<td><input type="radio" name="card" value="${card.getCreditCardNumber()}" onselect="return validateCVN()"></td>
+				<td>${card.getCreditCardNumber()}</td>
+				<td>${card.getType()}</td>
+				<td>${card.getDateOfExpiry()}</td>
+				<td>${card.getNameOnCard()}</td>
+				<td><input type="text" name="CVN"></td>
+			</tr>
+			</c:forEach>
+		</table>
+		</c:when>
+		<c:otherwise>
+			<a href="/Symphony/AddCard.jsp">Add Card</a>
+		</c:otherwise>
+		</c:choose>
+				
+		<input type="submit" value="Purchase">
+		</form>
+			
+			</div>
     	</div>
     </div>
-	
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">        
-
-     <h1 class="page-header">${it.Category}</h1> 
-    	<div class="music"> 
-	<c:forEach var="product" items="${it.ProductList}">
-	<a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}">
-	<p style="border:2px solid #000; float:left; border-radius:10px; box-shadow: 0px 0px 13px 1px; width: 200px; background-color: #f5f5f5; margin: 25px; padding: 25px 0px; text-align: center; ">
-	<i class="fa fa-music fa-5x"></i> <br/><br/>
-	<span style="font-size:1.7em;">	${product}</span>
-	</p>
-	</a>
-	</c:forEach>
-	</ul>
-
-</div>
-
-    </div>    
+   </div>
+    
 
     
 	<%String customername=(String)request.getSession(false).getAttribute("customername"); %>

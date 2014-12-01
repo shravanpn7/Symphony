@@ -65,27 +65,28 @@
           </ul>
           
         </div>
-
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+         
+     		<h1 class="page-header">${it.Category}</h1> 
+    	 <div class="music">
+     	
+		     
+		<form name="checkoutForm" action="/Symphony/Symphony/Symphony/AddCard" method="post" onsubmit="return validateCreditCard()">
+		<h3>Enter Credit Card Details:</h3><br>
+		<table>
+			<tr><td>Credit Card Number</td><td><input type="text" name="CreditCardNumber"></td></tr>
+			<tr><td>Credit Card Type</td><td><input type="text" name="CreditCardType"></td></tr>
+			<tr><td>Date of Expiry</td><td><input type="text" name="DateOfExpiry"></td></tr>
+			<tr><td>Name on Card</td><td><input type="text" name="NameOnCard"></td></tr>
+			<tr><td><input type="submit" value="Add Card"></td></tr>
+		</table>
+		</form>
+			
+			</div>
     	</div>
     </div>
-	
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">        
-
-     <h1 class="page-header">${it.Category}</h1> 
-    	<div class="music"> 
-	<c:forEach var="product" items="${it.ProductList}">
-	<a href="/Symphony/Symphony/Symphony/Product/${it.Category}/${product}">
-	<p style="border:2px solid #000; float:left; border-radius:10px; box-shadow: 0px 0px 13px 1px; width: 200px; background-color: #f5f5f5; margin: 25px; padding: 25px 0px; text-align: center; ">
-	<i class="fa fa-music fa-5x"></i> <br/><br/>
-	<span style="font-size:1.7em;">	${product}</span>
-	</p>
-	</a>
-	</c:forEach>
-	</ul>
-
-</div>
-
-    </div>    
+   </div>
+    
 
     
 	<%String customername=(String)request.getSession(false).getAttribute("customername"); %>

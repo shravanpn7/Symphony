@@ -48,12 +48,21 @@
       </div><!-- /.container -->
     </nav><!-- /.navbar -->	
     
-    <div class="container">
-    <br/><br/>
+	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/Symphony/Symphony/Symphony/List/Album"> Album</a></li>
+            <li><a href="/Symphony/Symphony/Symphony/List/Tracks">Tracks</a></li>
+            <li><a href="/Symphony/Symphony/Symphony/List/Artists">Artists</a></li>
+            <li><a href="/Symphony/Symphony/Symphony/List/Genre">Genre</a></li>
+          </ul>
+          
+        </div>    <br/><br/>
      <h1 style="text-align:center;">Tracks page</h1> 
      
      <div class="music">
-     		<table border="10px">
+     		<table height="350px" width="350px">
 
 		<tr>
 			<td>TrackId</td>
@@ -96,6 +105,7 @@
 			</div>
 
     </div> <!-- /container -->
+    </div>
     
 	<%String customername=(String)request.getSession(false).getAttribute("customername"); %>
 	
